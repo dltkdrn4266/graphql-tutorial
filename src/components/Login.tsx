@@ -14,25 +14,25 @@ export const Login = (): JSX.Element => {
         name: '',
     });
 
-    const [login] = useMutation(LOGIN_MUTATION, {
+    const [loginMutation] = useMutation(LOGIN_MUTATION, {
         variables: {
             email: formState.email,
             password: formState.password,
         },
-        onCompleted: ({ loginResult }) => {
-            localStorage.setItem(AUTH_TOKEN, loginResult.token);
+        onCompleted: ({ login }) => {
+            localStorage.setItem(AUTH_TOKEN, login.token);
             history.push('/');
         },
     });
 
-    const [signup] = useMutation(SIGNUP_MUTATION, {
+    const [signupMutation] = useMutation(SIGNUP_MUTATION, {
         variables: {
             email: formState.email,
             name: formState.name,
-            passwrod: formState.password,
+            password: formState.password,
         },
-        onCompleted: ({ signupResult }) => {
-            localStorage.setItem(AUTH_TOKEN, signupResult.token);
+        onCompleted: ({ signup }) => {
+            localStorage.setItem(AUTH_TOKEN, signup.token);
             history.push('/');
         },
     });
@@ -67,12 +67,9 @@ export const Login = (): JSX.Element => {
 
     const onClickButton = async () => {
         if (formState.login) {
-            console.log('login');
-            await login();
+            await loginMutation();
         } else {
-            console.log('signup');
-            console.log(formState);
-            await signup();
+            await signupMutation();
         }
     };
 

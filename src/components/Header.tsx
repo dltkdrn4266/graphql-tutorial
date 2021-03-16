@@ -6,10 +6,9 @@ import { AUTH_TOKEN } from '../constants/constants';
 export const Header = (): JSX.Element => {
     const history = useHistory();
     const authToken = localStorage.getItem(AUTH_TOKEN);
-
     const onClickLogout = () => {
         localStorage.removeItem(AUTH_TOKEN);
-        history.push('/');
+        history.push('/login');
     };
 
     return (

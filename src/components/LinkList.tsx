@@ -4,7 +4,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { useQuery } from '@apollo/client';
 import React from 'react';
-import { FEED_QUERY } from '../gql/feedquery';
+import { FEED_QUERY } from '../gql/query';
 import { Link } from './Link';
 
 export const LinkList = (): JSX.Element => {
@@ -13,9 +13,21 @@ export const LinkList = (): JSX.Element => {
         <div>
             {data && (
                 <>
-                    {data.feed.links.map((link: { id: string; description: string; url: string }) => (
-                        <Link key={link.id} link={link} />
-                    ))}
+                    {data.feed.links.map(
+                        (
+                            link: {
+                                id: any;
+                                description: string;
+                                url: string;
+                                postedBy: { id: string; name: string };
+                                votes: { id: string; user: { id: string } }[];
+                                createdAt: Date;
+                            },
+                            index: number,
+                        ) => (
+                            <Link key={link.id} link={link} index={index} />
+                        ),
+                    )}
                 </>
             )}
         </div>

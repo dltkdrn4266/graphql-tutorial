@@ -49,22 +49,23 @@ export const FEED_SEARCH_QUERY = gql`
     }
 `;
 
-export const VOTE_MUTATION = gql`
-    mutation VoteMutation($linkId: ID!) {
-        vote(linkId: $linkId) {
+export const NEW_LINKS_SUBSCRIPTION = gql`
+    subscription newLinkSubscription {
+        newLink {
             id
-            link {
+            url
+            description
+            postedBy {
                 id
-                votes {
+                name
+            }
+            votes {
+                id
+                user {
                     id
-                    user {
-                        id
-                    }
                 }
             }
-            user {
-                id
-            }
+            createdAt
         }
     }
 `;

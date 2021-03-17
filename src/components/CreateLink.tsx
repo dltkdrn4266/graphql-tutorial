@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router';
 import { LINKS_PER_PAGE } from '../constants/constants';
 import { feedQuery } from '../gql/__generated__/feedQuery';
-import { CREATE_LINK_MUTATION } from '../gql/createlinkmutation';
+import { CREATE_LINK_MUTATION } from '../gql/mutation';
 import { FEED_QUERY } from '../gql/query';
 
 export const CreateLink = (): JSX.Element => {

@@ -3,8 +3,9 @@
 import { useMutation } from '@apollo/client';
 import React from 'react';
 import { AUTH_TOKEN, LINKS_PER_PAGE } from '../constants/constants';
-import { feedQuery, feedQuery_feed, feedQuery_feed_links } from '../gql/__generated__/feedQuery';
-import { FEED_QUERY, VOTE_MUTATION } from '../gql/query';
+import { feedQuery, feedQuery_feed_links } from '../gql/__generated__/feedQuery';
+import { VOTE_MUTATION } from '../gql/mutation';
+import { FEED_QUERY } from '../gql/query';
 import { timeDifferenceForDate } from '../utils/utils';
 
 interface Props {

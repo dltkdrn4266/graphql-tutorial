@@ -3,26 +3,12 @@
 import { useMutation } from '@apollo/client';
 import React from 'react';
 import { AUTH_TOKEN, LINKS_PER_PAGE } from '../constants/constants';
-import { VOTE_MUTATION } from '../gql/query';
+import { feedQuery, feedQuery_feed, feedQuery_feed_links } from '../gql/__generated__/feedQuery';
+import { FEED_QUERY, VOTE_MUTATION } from '../gql/query';
 import { timeDifferenceForDate } from '../utils/utils';
 
 interface Props {
-    link: {
-        id: string;
-        description: string;
-        url: string;
-        postedBy: {
-            id: string;
-            name: string;
-        };
-        votes: {
-            id: string;
-            user: {
-                id: string;
-            };
-        }[];
-        createdAt: Date;
-    };
+    link: feedQuery_feed_links;
     index: number;
 }
 
@@ -34,14 +20,37 @@ export const Link = (props: Props): JSX.Element => {
     const skip = 0;
     const orderBy = { createdAt: 'desc' };
 
-    const [vote] = useMutation(VOTE_MUTATION, {
+    const [voteMutation] = useMutation(VOTE_MUTATION, {
         variables: {
             linkId: link.id,
+        },
+        update(cache, { data: { vote } }) {
+            const data: feedQuery | null = cache.readQuery({
+                query: FEED_QUERY,
+            });
+            const updatedLinks = data?.feed.links.map((feedLink) => {
+                if (feedLink.id === link.id) {
+                    return {
+                        ...feedLink,
+                        votes: [...feedLink.votes, vote],
+                    };
+                }
+                return feedLink;
+            });
+
+            cache.writeQuery({
+                query: FEED_QUERY,
+                data: {
+                    feed: {
+                        links: updatedLinks,
+                    },
+                },
+            });
         },
     });
 
     const onClickButton = async () => {
-        await vote();
+        await voteMutation();
     };
 
     return (

@@ -24,7 +24,7 @@ export const timeDifference = (current: number, previous: number) => {
         return `${Math.round(elapsed / milliSecondsPerDay)} days ago`;
     }
     if (elapsed < milliSecondsPerYear) {
-        return `${Math.round(elapsed / milliSecondsPerMonth)} mo ago`;
+        return `${Math.round(elapsed / milliSecondsPerMonth)} months ago`;
     }
     return `${Math.round(elapsed / milliSecondsPerYear)} years ago`;
 };

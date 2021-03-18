@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import { useMutation } from '@apollo/client';
 import React from 'react';
 import { AUTH_TOKEN, LINKS_PER_PAGE } from '../constants/constants';
@@ -46,6 +44,11 @@ export const Link = (props: Props): JSX.Element => {
                         links: updatedLinks,
                     },
                 },
+                variables: {
+                    take,
+                    skip,
+                    orderBy,
+                },
             });
         },
     });
@@ -59,9 +62,14 @@ export const Link = (props: Props): JSX.Element => {
             <div className="flex items-center">
                 <span className="gray">{index + 1}</span>
                 {authToken && (
-                    <div className="ml1 gray f11" style={{ cursor: 'pointer' }} onClick={onClickButton}>
+                    <button
+                        type="button"
+                        className="ml1 gray f11"
+                        style={{ cursor: 'pointer' }}
+                        onClick={onClickButton}
+                    >
                         ▲
-                    </div>
+                    </button>
                 )}
             </div>
             <div className="ml1">

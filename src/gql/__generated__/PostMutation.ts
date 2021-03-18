@@ -3,6 +3,8 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+import { DateTime } from "../../commons/@types/scalar";
+
 // ====================================================
 // GraphQL mutation operation: PostMutation
 // ====================================================

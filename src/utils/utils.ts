@@ -1,6 +1,6 @@
 import { LINKS_PER_PAGE } from '../constants/constants';
 
-export const timeDifference = (current: number, previous: number) => {
+export const timeDifference = (current: number, previous: number): string => {
     const milliSecondsPerMinute = 60 * 1000;
     const milliSecondsPerHour = milliSecondsPerMinute * 60;
     const milliSecondsPerDay = milliSecondsPerHour * 24;
@@ -31,13 +31,16 @@ export const timeDifference = (current: number, previous: number) => {
     return `${Math.round(elapsed / milliSecondsPerYear)} years ago`;
 };
 
-export const timeDifferenceForDate = (date: string | number | Date) => {
+export const timeDifferenceForDate = (date: string | number | Date): string => {
     const now = new Date().getTime();
     const updated = new Date(date).getTime();
     return timeDifference(now, updated);
 };
 
-export const getQueryVariables = (isNewPage: boolean, page: number) => {
+export const getQueryVariables = (
+    isNewPage: boolean,
+    page: number,
+): { take: number; skip: number; orderBy: { createdAt: string } } => {
     const skip = isNewPage ? (page - 1) * LINKS_PER_PAGE : 0;
     const take = isNewPage ? LINKS_PER_PAGE : 100;
     const orderBy = { createdAt: 'desc' };

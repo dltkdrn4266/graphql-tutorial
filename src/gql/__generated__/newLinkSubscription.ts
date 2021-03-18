@@ -31,9 +31,9 @@ export interface newLinkSubscription_newLink {
   id: string;
   url: string;
   description: string;
-  createdAt: DateTime;
   postedBy: newLinkSubscription_newLink_postedBy | null;
   votes: newLinkSubscription_newLink_votes[];
+  createdAt: DateTime;
 }
 
 export interface newLinkSubscription {

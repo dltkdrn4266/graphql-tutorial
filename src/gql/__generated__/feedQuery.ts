@@ -3,6 +3,8 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+import { LinkOrderByInput } from "./../../__generated__/globalTypes";
+
 // ====================================================
 // GraphQL query operation: feedQuery
 // ====================================================
@@ -38,8 +40,15 @@ export interface feedQuery_feed {
   __typename: "Feed";
   id: string;
   links: feedQuery_feed_links[];
+  count: number;
 }
 
 export interface feedQuery {
   feed: feedQuery_feed;
+}
+
+export interface feedQueryVariables {
+  take?: number | null;
+  skip?: number | null;
+  orderBy?: LinkOrderByInput | null;
 }

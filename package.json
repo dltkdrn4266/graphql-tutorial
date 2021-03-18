@@ -24,7 +24,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint src --ext .ts",
-    "codegen": "apollo client:codegen --passthroughCustomScalars --target typescript"
+    "codegen": "apollo client:codegen --globalTypesFile ./src/__generated__/globalTypes.ts --passthroughCustomScalars --target typescript"
   },
   "eslintConfig": {
     "extends": [

@@ -1,9 +1,10 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { useMutation } from '@apollo/client';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router';
 import { AUTH_TOKEN } from '../constants/constants';
-import { LOGIN_MUTATION, SIGNUP_MUTATION } from '../gql/authmutation';
+import { LoginMutation } from '../gql/__generated__/LoginMutation';
+import { SignUpMutation } from '../gql/__generated__/SignUpMutation';
+import { LOGIN_MUTATION, SIGNUP_MUTATION } from '../gql/mutation';
 
 export const Login = (): JSX.Element => {
     const history = useHistory();
@@ -14,26 +15,30 @@ export const Login = (): JSX.Element => {
         name: '',
     });
 
-    const [loginMutation] = useMutation(LOGIN_MUTATION, {
+    const [loginMutation] = useMutation<LoginMutation>(LOGIN_MUTATION, {
         variables: {
             email: formState.email,
             password: formState.password,
         },
-        onCompleted: ({ login }) => {
-            localStorage.setItem(AUTH_TOKEN, login.token);
-            history.push('/');
+        onCompleted: ({ login }: LoginMutation) => {
+            if (login && login.token) {
+                localStorage.setItem(AUTH_TOKEN, login.token);
+                history.push('/');
+            }
         },
     });
 
-    const [signupMutation] = useMutation(SIGNUP_MUTATION, {
+    const [signupMutation] = useMutation<SignUpMutation>(SIGNUP_MUTATION, {
         variables: {
             email: formState.email,
             name: formState.name,
             password: formState.password,
         },
-        onCompleted: ({ signup }) => {
-            localStorage.setItem(AUTH_TOKEN, signup.token);
-            history.push('/');
+        onCompleted: ({ signup }: SignUpMutation) => {
+            if (signup && signup.token) {
+                localStorage.setItem(AUTH_TOKEN, signup.token);
+                history.push('/');
+            }
         },
     });
 

@@ -3,6 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+import { DateTime } from "../../commons/@types/scalar";
 import { LinkOrderByInput } from "./../../__generated__/globalTypes";
 
 // ====================================================
